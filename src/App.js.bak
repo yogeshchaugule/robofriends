@@ -1,0 +1,35 @@
+import React, { Component } from 'react';
+import CardList from './Robo/CardList';
+import { robots } from './Robo/robots';
+import SearchBox from './Robo/SearchBox';
+
+class App extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      robots: robots,
+      searchKey: ''
+    };
+  }
+
+  render() {
+    const filteredRobots = this.state.robots.filter((robot) => {
+      return robot.name.toLocaleLowerCase().includes(this.state.searchKey);
+    });
+    return (
+      <div className="tc">
+        <h1>RoboFriends</h1>
+        <SearchBox onSearchKeyChange={this.onSearchKeyChange} />
+        <CardList robots={filteredRobots} />
+      </div>
+    );
+  }
+
+  onSearchKeyChange = (event) => {
+    this.setState({ searchKey: event.target.value });
+  }
+
+}
+
+export default App;
